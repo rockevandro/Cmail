@@ -9,6 +9,8 @@ import { CaixaDeEntradaComponent } from './components/caixa-de-entrada/caixa-de-
 import { LoginComponent } from './components/login/login.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import { ModuloRoteamento } from './app.routes';
+import { CmailFormGroupComponent } from './components/cmail-form-group/cmail-form-group.component';
+import { CmailFormFieldDirective } from './components/cmail-form-group/cmail-form-field-directive';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { ModuloRoteamento } from './app.routes';
     HeaderComponent,
     CaixaDeEntradaComponent,
     LoginComponent,
-    CadastroComponent
+    CadastroComponent,
+    CmailFormGroupComponent,
+    CmailFormFieldDirective
   ],
   imports: [
     BrowserModule,

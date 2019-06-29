@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-caixa-de-entrada',
+  selector: 'caixa-de-entrada',
   templateUrl: './caixa-de-entrada.component.html',
   styleUrls: ['./caixa-de-entrada.component.css']
 })

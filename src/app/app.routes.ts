@@ -7,6 +7,7 @@ const routes: Routes = [
 {path: '', component: LoginComponent},
 {path: 'inbox', component: CaixaDeEntradaComponent},
 {path: 'cadastro', component: CadastroComponent},
+{path: '**', redirectTo: 'inbox'},
 ]
 
 export const ModuloRoteamento = RouterModule.forRoot(routes);

@@ -5,31 +5,30 @@
       <div class="mdl-grid">
         <form [formGroup]="formCadastro" (ngSubmit)="handleCadastrarUsuario()">
 
-          <cmail-form-group>
+          <cmail-form-group [campo]="formCadastro.get('nome')">
             <input formControlName="nome" type="text" autofocus required name="nome" cmailFormField>
-             <span class="mdl-textfield__error">Informar um nome é obrigatório</span>
+            <span class="mdl-textfield__error">Informar um nome é obrigatório</span>
           </cmail-form-group>
 
-          <cmail-form-group>
-              <input formControlName="username" type="text" autofocus required name="username" cmailFormField>
-               <span class="mdl-textfield__error">Informar um nome de usuário é obrigatório</span>
-            </cmail-form-group>
+          <cmail-form-group [campo]="formCadastro.get('username')">
+            <input formControlName="username" type="text" autofocus required name="username" cmailFormField>
+            <span class="mdl-textfield__error">Informar um nome de usuário é obrigatório</span>
+          </cmail-form-group>
 
-            <cmail-form-group>
-                <input formControlName="senha" type="password" autofocus required name="senha" cmailFormField>
-                 <span class="mdl-textfield__error">Informar uma senha é obrigatório</span>
-              </cmail-form-group>
+          <cmail-form-group [campo]="formCadastro.get('senha')">
+            <input formControlName="senha" type="password" autofocus required name="senha" cmailFormField>
+            <span class="mdl-textfield__error">Informar uma senha é obrigatório</span>
+          </cmail-form-group>
 
-              <cmail-form-group>
-                  <input formControlName="avatar" type="text" autofocus required name="avatar" cmailFormField>
-                </cmail-form-group>
-          
+          <cmail-form-group [campo]="formCadastro.get('avatar')">
+            <input formControlName="avatar" type="text" autofocus required name="avatar" cmailFormField>
+          </cmail-form-group>
+
           <div class="mdl-card__actions">
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
               Cadastrar
             </button>
           </div>
-
         </form>
       </div>
     </div>

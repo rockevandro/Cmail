@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'cadastro',
@@ -9,19 +9,27 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class CadastroComponent implements OnInit {
 
   formCadastro = new FormGroup({
-    nome: new FormControl(),
-    username: new FormControl(),
-    senha: new FormControl(),
+    nome: new FormControl('', [Validators.required]),
+    username: new FormControl('', [Validators.required]),
+    senha: new FormControl('', [Validators.required]),
     avatar: new FormControl()
-  })
+  });
 
   handleCadastrarUsuario(){
-    if (this.formCadastro.valid)
+    if (this.formCadastro.valid){
       console.log(this.formCadastro.value);
+      this.formCadastro.reset();
+    }
     else
-      console.log('Campos precisam ser preenchidos');
+      this.validarTodosOsCamposDoFormulario(this.formCadastro);
   }
 
+  validarTodosOsCamposDoFormulario(form: FormGroup){
+    Object.keys(form.controls).forEach(field => {
+      const control = form.get(field);
+      control.markAsTouched({ onlySelf: true});
+    })
+  }
   constructor() { }
 
   ngOnInit() {

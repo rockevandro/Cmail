@@ -7,7 +7,15 @@
 
           <cmail-form-group [campo]="formCadastro.get('nome')">
             <input formControlName="nome" type="text" autofocus required name="nome" cmailFormField>
-            <span class="mdl-textfield__error">Informar um nome é obrigatório</span>
+            <div *ngIf="formCadastro.get('nome').errors">
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('nome').errors.required">
+                Informar um nome é obrigatório
+              </span>
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('nome').errors.minlength">
+                você preencheu {{ formCadastro.get('nome').errors.minlength.actualLength }}
+                caracteres de {{ formCadastro.get('nome').errors.minlength.requiredLength }}
+              </span>
+            </div>
           </cmail-form-group>
 
           <cmail-form-group [campo]="formCadastro.get('username')">
@@ -18,6 +26,18 @@
           <cmail-form-group [campo]="formCadastro.get('senha')">
             <input formControlName="senha" type="password" autofocus required name="senha" cmailFormField>
             <span class="mdl-textfield__error">Informar uma senha é obrigatório</span>
+          </cmail-form-group>
+
+          <cmail-form-group [campo]="formCadastro.get('telefone')">
+            <input formControlName="telefone" type="text" required name="telefone" cmailFormField>
+            <div *ngIf="formCadastro.get('telefone').errors">
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('telefone').errors.required">
+                Informar um telefone é obrigatório
+              </span>
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('telefone').errors.pattern">
+                o telefone deve conter 8 ou 9 números.
+              </span>
+            </div>
           </cmail-form-group>
 
           <cmail-form-group [campo]="formCadastro.get('avatar')">

@@ -3,25 +3,25 @@
   <main class="mdl-layout__content">
     <div class="page-content">
       <div class="mdl-grid">
-        <form>
+        <form [formGroup]="formCadastro" (ngSubmit)="handleCadastrarUsuario()">
 
           <cmail-form-group>
-            <input type="text" autofocus required name="nome" cmailFormField>
+            <input formControlName="nome" type="text" autofocus required name="nome" cmailFormField>
              <span class="mdl-textfield__error">Informar um nome é obrigatório</span>
           </cmail-form-group>
 
           <cmail-form-group>
-              <input type="text" autofocus required name="userName" cmailFormField>
+              <input formControlName="username" type="text" autofocus required name="username" cmailFormField>
                <span class="mdl-textfield__error">Informar um nome de usuário é obrigatório</span>
             </cmail-form-group>
 
             <cmail-form-group>
-                <input type="password" autofocus required name="senha" cmailFormField>
+                <input formControlName="senha" type="password" autofocus required name="senha" cmailFormField>
                  <span class="mdl-textfield__error">Informar uma senha é obrigatório</span>
               </cmail-form-group>
 
               <cmail-form-group>
-                  <input type="text" autofocus required name="avatar" cmailFormField>
+                  <input formControlName="avatar" type="text" autofocus required name="avatar" cmailFormField>
                 </cmail-form-group>
           
           <div class="mdl-card__actions">

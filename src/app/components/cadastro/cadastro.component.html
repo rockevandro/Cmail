@@ -19,12 +19,12 @@
           </cmail-form-group>
 
           <cmail-form-group [campo]="formCadastro.get('username')">
-            <input formControlName="username" type="text" autofocus required name="username" cmailFormField>
+            <input formControlName="username" type="text" required name="username" cmailFormField>
             <span class="mdl-textfield__error">Informar um nome de usuário é obrigatório</span>
           </cmail-form-group>
 
           <cmail-form-group [campo]="formCadastro.get('senha')">
-            <input formControlName="senha" type="password" autofocus required name="senha" cmailFormField>
+            <input formControlName="senha" type="password" required name="senha" cmailFormField>
             <span class="mdl-textfield__error">Informar uma senha é obrigatório</span>
           </cmail-form-group>
 
@@ -41,7 +41,19 @@
           </cmail-form-group>
 
           <cmail-form-group [campo]="formCadastro.get('avatar')">
-            <input formControlName="avatar" type="text" autofocus required name="avatar" cmailFormField>
+            <input formControlName="avatar" type="text" required name="avatar" cmailFormField>
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('avatar').hasError('required')">
+                Informar uma url com um avatar é obrigatório!
+              </span>
+              <span class="mdl-textfield__error mdl-textfield__checking" *ngIf="formCadastro.get('avatar').status === 'PENDING'">
+                Validação pendende...
+              </span>
+              <span class="mdl-textfield__error mdl-textfield__valid" *ngIf="formCadastro.get('avatar').status === 'VALID'">
+                URL Válida :D
+              </span>
+              <span class="mdl-textfield__error" *ngIf="formCadastro.get('avatar').hasError('urlInvalida')">
+                  Erro na URL informada :(
+                </span>
           </cmail-form-group>
 
           <div class="mdl-card__actions">

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpClient, HttpResponseBase } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'cadastro',
@@ -14,8 +16,9 @@ export class CadastroComponent implements OnInit {
     senha: new FormControl('', [Validators.required]),
     telefone: new FormControl('', [Validators.required,
     Validators.pattern('[0-9]{4}-?[0-9]{4}[0-9]?')]),
-    avatar: new FormControl()
+    avatar: new FormControl('', [Validators.required], this.validaImagem.bind(this))
   });
+  
 
   handleCadastrarUsuario() {
     if (this.formCadastro.valid) {
@@ -32,7 +35,23 @@ export class CadastroComponent implements OnInit {
       control.markAsTouched({ onlySelf: true });
     })
   }
-  constructor() { }
+
+  validaImagem(campoDoFormulario: FormControl){
+    return this.httpClient.head(campoDoFormulario.value, {
+      observe: 'response'
+    })
+    .pipe(
+      map((response: HttpResponseBase)=> {
+        return response.ok ? null : { urlInvalida: true }
+      }),
+      catchError((error) => {
+        return [{ urlInvalida: true}]
+      })
+    
+    )
+  }
+
+  constructor(private httpClient: HttpClient) { }
 
   ngOnInit() {
   }

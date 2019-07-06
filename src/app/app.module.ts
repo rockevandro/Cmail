@@ -5,10 +5,8 @@ import { AppComponent } from './app.component';
 
 import { FormsModule } from "@angular/forms";
 import { CaixaDeEntradaComponent } from './components/caixa-de-entrada/caixa-de-entrada.component';
-import { LoginComponent } from './components/login/login.component';
-import { ModuloRoteamento } from './app.routes';
+import { RoteamentoModule } from './modules/roteamento.module';
 import { HttpClientModule } from '@angular/common/http';
-import { CadastroModule } from './modules/cadastro.module';
 import { CmailFormModule } from './modules/cmail-form.module';
 import { SharedModule } from './modules/shared.module';
 
@@ -16,14 +14,12 @@ import { SharedModule } from './modules/shared.module';
   declarations: [
     AppComponent,
     CaixaDeEntradaComponent,
-    LoginComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    ModuloRoteamento,
+    RoteamentoModule,
     HttpClientModule,
-    CadastroModule,
     SharedModule,
     CmailFormModule
   ],

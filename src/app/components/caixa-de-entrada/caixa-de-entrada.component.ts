@@ -8,7 +8,12 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './caixa-de-entrada.component.html',
   styleUrls: ['./caixa-de-entrada.component.css']
 })
-export class CaixaDeEntradaComponent {
+export class CaixaDeEntradaComponent implements OnInit {
+  ngOnInit(): void {
+    this.emailService.listar().subscribe(lista => {
+      this.emailList = lista
+    })
+  }
 
   constructor(private emailService: EmailService) { }
 

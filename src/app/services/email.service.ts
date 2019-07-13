@@ -23,12 +23,23 @@ export class EmailService {
         return this.http
             .post(EmailService.api, emailParaApi, { headers: EmailService.cabecalho })
             .pipe<Email>(map((emailApi: any) => {
-                return new Email({
-                    destinatario: emailApi.to,
-                    assunto: emailApi.subject,
-                    conteudo: emailApi.content,
-                    dataDeEnvio: emailApi.created_at
-                })
+                return this.emailFactory(emailApi)
             }))
+    }
+
+
+    listar() {
+        return this.http.get(EmailService.api, { headers: EmailService.cabecalho })
+            .pipe<Email[]>(map((response: any[]) => {
+                return response.map(emailApi => this.emailFactory(emailApi));
+            }))
+    }
+    private emailFactory(emailApi: any): Email {
+        return new Email({
+            destinatario: emailApi.to,
+            assunto: emailApi.subject,
+            conteudo: emailApi.content,
+            dataDeEnvio: emailApi.created_at
+        });
     }
 }

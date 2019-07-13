@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { EmailService } from 'src/app/services/email.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'caixa-de-entrada',
@@ -7,6 +9,8 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./caixa-de-entrada.component.css']
 })
 export class CaixaDeEntradaComponent {
+
+  constructor(private emailService: EmailService) { }
 
   private _isNewEmailFormOpen = false;
   emailList = [];
@@ -16,27 +20,31 @@ export class CaixaDeEntradaComponent {
     conteudo: ''
   }
 
-  get isNewEmailFormOpen(){
+  get isNewEmailFormOpen() {
     return this._isNewEmailFormOpen;
   }
 
-  toggleNewEmailForm(){
+  toggleNewEmailForm() {
     this._isNewEmailFormOpen = !this._isNewEmailFormOpen;
   }
 
-  handleNewEmail(formEmail: NgForm){
+  handleNewEmail(formEmail: NgForm) {
 
     if (formEmail.invalid)
       return;
 
-    this.emailList.push(this.email);
+    this.emailService.enviar(this.email).subscribe(emailApi => {
+      this.emailList.push(emailApi);
 
-    this.email = {
-      destinatario: '',
-      assunto: '',
-      conteudo: ''
-    };
+      this.email = {
+        destinatario: '',
+        assunto: '',
+        conteudo: ''
+      };
 
-    formEmail.reset();
+      formEmail.reset();
+    }, (erro: HttpErrorResponse) => {
+      console.log(erro);
+    })
   }
 }

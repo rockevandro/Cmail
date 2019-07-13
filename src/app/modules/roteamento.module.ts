@@ -1,10 +1,11 @@
 import { Routes, RouterModule } from "@angular/router";
 import { CaixaDeEntradaComponent } from '../components/caixa-de-entrada/caixa-de-entrada.component';
 import { NgModule } from '@angular/core';
+import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
     { path: '', loadChildren: 'src/app/modules/login.module#LoginModule' },
-    { path: 'inbox', component: CaixaDeEntradaComponent },
+    { path: 'inbox', component: CaixaDeEntradaComponent, canActivate: [AuthGuard] },
     { path: 'cadastro', loadChildren: 'src/app/modules/cadastro.module#CadastroModule' },
     { path: '**', redirectTo: 'inbox' },
 ]
@@ -15,6 +16,9 @@ const routes: Routes = [
     ],
     exports:[
         RouterModule
+    ],
+    providers:[
+        AuthGuard
     ]
 })
 export class RoteamentoModule{}

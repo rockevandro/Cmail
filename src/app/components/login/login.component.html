@@ -17,11 +17,11 @@
             </span>
           </cmail-form-group>
 
-          <cmail-form-group [campo]="senha">
-              <input type="password" #senha="ngModel" [(ngModel)]="login.senha" name="senha"
+          <cmail-form-group [campo]="password">
+              <input type="password" #password="ngModel" [(ngModel)]="login.password" name="password"
               cmailFormField required>
-              <span class="mdl-textfield__error" *ngIf="senha.invalid">
-                Informar um email é obrigatório!
+              <span class="mdl-textfield__error" *ngIf="password.invalid">
+                Informar uma senha é obrigatório!
               </span>
             </cmail-form-group>
 

@@ -5,6 +5,7 @@ import { CmailFormModule } from './cmail-form.module';
 import { RouterModule } from '@angular/router';
 import { LoginComponent } from '../components/login/login.component';
 import { LoginRoutingModule } from './login-routing-module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
     declarations:[
@@ -15,7 +16,8 @@ import { LoginRoutingModule } from './login-routing-module';
         CommonModule,
         CmailFormModule,
         RouterModule,
-        LoginRoutingModule
+        LoginRoutingModule,
+        FormsModule
     ],
 })
 export class LoginModule{

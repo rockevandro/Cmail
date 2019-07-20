@@ -37,6 +37,15 @@ export class CaixaDeEntradaComponent implements OnInit {
     });
   }
 
+  filtrarEmailsPorAssunto(){
+    const termoParaFiltroEmMinusculo = this.termoParaFiltro.toLowerCase();
+
+    return this.emailList.filter(email => {
+      const assunto = email.assunto.toLowerCase();
+      return assunto.includes(termoParaFiltroEmMinusculo);
+    })
+  }
+
   get isNewEmailFormOpen() {
     return this._isNewEmailFormOpen;
   }
@@ -52,8 +61,10 @@ export class CaixaDeEntradaComponent implements OnInit {
 
     this.emailService.enviar(this.email)
     .subscribe(emailApi => {
-      this.emailList = this.emailList.concat(emailApi)
-      console.log(this.emailList);
+
+      // concat é necessário caso utilizemos o filtro com pipe (... | ... : ...)
+      //this.emailList = this.emailList.concat(emailApi)
+      this.emailList.push(emailApi);
 
       this.email = {
         destinatario: '',

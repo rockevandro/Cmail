@@ -16,8 +16,7 @@ export class EmailService {
         const emailParaApi = {
             to: destinatario,
             subject: assunto,
-            content: conteudo,
-
+            content: conteudo
         };
 
         return this.http
@@ -31,7 +30,7 @@ export class EmailService {
         return this.http.get(EmailService.api, { headers: EmailService.cabecalho })
             .pipe<Email[]>(map((response: any[]) => {
                 return response.map(emailApi => this.emailFactory(emailApi));
-            }))
+            }));
     }
 
     private emailFactory(emailApi: any): Email {

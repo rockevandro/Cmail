@@ -9,11 +9,13 @@ import { RoteamentoModule } from './modules/roteamento.module';
 import { HttpClientModule } from '@angular/common/http';
 import { CmailFormModule } from './modules/cmail-form.module';
 import { SharedModule } from './modules/shared.module';
+import { FiltroPorAssuntoPipe } from './components/caixa-de-entrada/filtro-por-assunto.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CaixaDeEntradaComponent
+    CaixaDeEntradaComponent,
+    FiltroPorAssuntoPipe
   ],
   imports: [
     BrowserModule,

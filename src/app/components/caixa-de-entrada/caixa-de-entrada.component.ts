@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EmailService } from 'src/app/services/email.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { PageDataService } from 'src/app/services/page-data.service';
+import { HeaderDataService } from 'src/app/services/header-data.service';
 
 @Component({
   selector: 'caixa-de-entrada',
@@ -10,22 +11,30 @@ import { PageDataService } from 'src/app/services/page-data.service';
   styleUrls: ['./caixa-de-entrada.component.css']
 })
 export class CaixaDeEntradaComponent implements OnInit {
-  ngOnInit(): void {
-    this.emailService.listar().subscribe(lista => {
-      this.emailList = lista
-    });
 
-    this.pageDataService.defineTitulo('Caixa de entrada')
-  }
-
-  constructor(private emailService: EmailService, private pageDataService: PageDataService) { }
-
+  constructor(private emailService: EmailService, private pageDataService: PageDataService,
+    private headerDataService: HeaderDataService) { }
+  
   private _isNewEmailFormOpen = false;
   emailList = [];
   email = {
     destinatario: '',
     assunto: '',
     conteudo: ''
+  }
+
+  termoParaFiltro = '';
+
+  ngOnInit(): void {
+    this.emailService.listar().subscribe(lista => {
+      this.emailList = lista
+    });
+
+    this.pageDataService.defineTitulo('Caixa de entrada');
+
+    this.headerDataService.valorDoFiltro.subscribe(novoValor => {
+      this.termoParaFiltro = novoValor;
+    });
   }
 
   get isNewEmailFormOpen() {
@@ -41,8 +50,10 @@ export class CaixaDeEntradaComponent implements OnInit {
     if (formEmail.invalid)
       return;
 
-    this.emailService.enviar(this.email).subscribe(emailApi => {
-      this.emailList.push(emailApi);
+    this.emailService.enviar(this.email)
+    .subscribe(emailApi => {
+      this.emailList = this.emailList.concat(emailApi)
+      console.log(this.emailList);
 
       this.email = {
         destinatario: '',
@@ -56,8 +67,8 @@ export class CaixaDeEntradaComponent implements OnInit {
     })
   }
 
-  handleRemoveEmail(eventoVaiRemover, emailId){
-    
+  handleRemoveEmail(eventoVaiRemover, emailId) {
+
     console.log(eventoVaiRemover);
 
     if (eventoVaiRemover.status === 'removing') {
@@ -65,7 +76,6 @@ export class CaixaDeEntradaComponent implements OnInit {
         console.log(res);
         this.emailList = this.emailList.filter(email => email.id != emailId);
       }, err => console.error(err));
-
     }
   }
 }

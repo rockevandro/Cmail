@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EmailService } from 'src/app/services/email.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { PageDataService } from 'src/app/services/page-data.service';
 
 @Component({
   selector: 'caixa-de-entrada',
@@ -12,10 +13,12 @@ export class CaixaDeEntradaComponent implements OnInit {
   ngOnInit(): void {
     this.emailService.listar().subscribe(lista => {
       this.emailList = lista
-    })
+    });
+
+    this.pageDataService.defineTitulo('Caixa de entrada')
   }
 
-  constructor(private emailService: EmailService) { }
+  constructor(private emailService: EmailService, private pageDataService: PageDataService) { }
 
   private _isNewEmailFormOpen = false;
   emailList = [];

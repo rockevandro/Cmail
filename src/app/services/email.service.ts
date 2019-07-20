@@ -27,19 +27,25 @@ export class EmailService {
             }))
     }
 
-
     listar() {
         return this.http.get(EmailService.api, { headers: EmailService.cabecalho })
             .pipe<Email[]>(map((response: any[]) => {
                 return response.map(emailApi => this.emailFactory(emailApi));
             }))
     }
+
     private emailFactory(emailApi: any): Email {
         return new Email({
             destinatario: emailApi.to,
             assunto: emailApi.subject,
             conteudo: emailApi.content,
-            dataDeEnvio: emailApi.created_at
+            dataDeEnvio: emailApi.created_at,
+            id: emailApi.id
         });
+    }
+
+    deletar(id){
+        return this.http
+        .delete(`${EmailService.api}/${id}`, {headers: EmailService.cabecalho});
     }
 }
